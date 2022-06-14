@@ -1,6 +1,6 @@
 ## Steps to Run:
 
-Grafana: 
+### Grafana: 
 ```
 Link: http://localhost:3000/
 Default user name and password will be "admin"
@@ -14,14 +14,17 @@ In Log Browser, Run query
 {Application="ApplicationWeb"}
 ```
 
-Swagger:
+### Swagger:
+
 ```
 http://localhost:8085/swagger/index.html
 
 Run a endpoint and see new logs in the Grafana
 ```
 
-Loki
+### Loki
+
+#### Log Queries
 
 **AND** logic:
 
@@ -32,7 +35,16 @@ Query by RequestPath AND StatusCode
 
 **=~** for regex matches:
 ```
+Query by Application and both StatusCode
 {Application="ApplicationWeb",StatusCode=~"200|400"}
+```
+
+#### Metric Queries
+
+
+Draft: try to understand this query
+```
+count_over_time({Application="ApplicationWeb",RequestPath="/api/Values/GetValue",SourceContext="ApplicationWeb.Controllers.ValuesController"}[5m])
 ```
 
 ## References:
@@ -48,3 +60,7 @@ Queries in Loki Grafana:
 https://grafana.com/docs/loki/latest/logql/log_queries/
 
 https://grafana.com/docs/loki/latest/logql/metric_queries/
+
+https://megamorf.gitlab.io/cheat-sheets/loki/
+
+
