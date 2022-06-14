@@ -44,5 +44,26 @@ namespace ApplicationWeb.Controllers
 
             return BadRequest(result);
         }
+
+        [HttpGet("Simple/Exception")]
+        public IActionResult Exception()
+        {
+            int a = 10, b = 0;
+            int result;
+
+            try
+            {
+                Log.Debug("Result = {A} / {B}", a, b);
+                result = a / b;
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Exception while computing {A} / {B}");
+
+                return BadRequest("Exception while computing {A} / {B}");
+            }            
+        }
     }
 }
