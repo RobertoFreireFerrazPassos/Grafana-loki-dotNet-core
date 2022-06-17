@@ -4,7 +4,9 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <IsServiceFabricServiceProject>True</IsServiceFabricServiceProject>
+    <DockerComposeProjectPath>..\ApplicationWeb\docker-compose.dcproj</DockerComposeProjectPath>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\ApplicationWeb</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>

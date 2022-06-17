@@ -7,11 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicationWeb", "Applicati
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{EEC1D0BE-D841-4E25-B9F1-3BB6EB13ADF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationWebB", "..\ApplicationWebB\ApplicationWebB.csproj", "{56670903-A164-4E29-824D-AEA7271033F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicationWebB", "..\ApplicationWebB\ApplicationWebB.csproj", "{56670903-A164-4E29-824D-AEA7271033F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Log", "..\Log\Log.csproj", "{85024C99-664D-4EFE-B4DC-5553AD5BF254}"
-EndProject
-Project("{A07B5EB6-E848-4116-A8D0-A826331D98C6}") = "ApplicationWebApplication", "ApplicationWebApplication\ApplicationWebApplication.sfproj", "{9C27C7E2-2B4D-4CF5-A69F-1759DF23C4A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Log", "..\Log\Log.csproj", "{85024C99-664D-4EFE-B4DC-5553AD5BF254}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,18 +51,6 @@ Global
 		{85024C99-664D-4EFE-B4DC-5553AD5BF254}.Release|Any CPU.Build.0 = Release|Any CPU
 		{85024C99-664D-4EFE-B4DC-5553AD5BF254}.Release|x64.ActiveCfg = Release|Any CPU
 		{85024C99-664D-4EFE-B4DC-5553AD5BF254}.Release|x64.Build.0 = Release|Any CPU
-		{9C27C7E2-2B4D-4CF5-A69F-1759DF23C4A6}.Debug|Any CPU.ActiveCfg = Debug|x64
-		{9C27C7E2-2B4D-4CF5-A69F-1759DF23C4A6}.Debug|Any CPU.Build.0 = Debug|x64
-		{9C27C7E2-2B4D-4CF5-A69F-1759DF23C4A6}.Debug|Any CPU.Deploy.0 = Debug|x64
-		{9C27C7E2-2B4D-4CF5-A69F-1759DF23C4A6}.Debug|x64.ActiveCfg = Debug|x64
-		{9C27C7E2-2B4D-4CF5-A69F-1759DF23C4A6}.Debug|x64.Build.0 = Debug|x64
-		{9C27C7E2-2B4D-4CF5-A69F-1759DF23C4A6}.Debug|x64.Deploy.0 = Debug|x64
-		{9C27C7E2-2B4D-4CF5-A69F-1759DF23C4A6}.Release|Any CPU.ActiveCfg = Release|x64
-		{9C27C7E2-2B4D-4CF5-A69F-1759DF23C4A6}.Release|Any CPU.Build.0 = Release|x64
-		{9C27C7E2-2B4D-4CF5-A69F-1759DF23C4A6}.Release|Any CPU.Deploy.0 = Release|x64
-		{9C27C7E2-2B4D-4CF5-A69F-1759DF23C4A6}.Release|x64.ActiveCfg = Release|x64
-		{9C27C7E2-2B4D-4CF5-A69F-1759DF23C4A6}.Release|x64.Build.0 = Release|x64
-		{9C27C7E2-2B4D-4CF5-A69F-1759DF23C4A6}.Release|x64.Deploy.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

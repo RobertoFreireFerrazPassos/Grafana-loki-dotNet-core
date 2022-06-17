@@ -11,7 +11,7 @@ services:
         ASPNETCORE_ENVIRONMENT: Development
         ASPNETCORE_URLS: http://+:80
     ports:
-        - 8085:80
+        - 4001:80
     depends_on:
         loki:
             condition: service_healthy
@@ -44,3 +44,15 @@ services:
     depends_on:
         loki:
             condition: service_healthy
+
+  applicationwebb:
+    environment:
+        loki: http://loki:3100
+        ASPNETCORE_ENVIRONMENT: Development
+        ASPNETCORE_URLS: http://+:80
+    ports:
+        - 4002:80
+    depends_on:
+        loki:
+            condition: service_healthy
+

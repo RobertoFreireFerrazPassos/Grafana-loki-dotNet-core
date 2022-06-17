@@ -44,10 +44,14 @@ In Log Browser, Run query
 
 ### Swagger:
 
-```
-http://localhost:8085/swagger/index.html
-
 Run a endpoint and see new logs in the Grafana
+
+```
+ApplicationWeb
+http://localhost:4001/swagger/index.html
+ApplicationWebB
+http://localhost:4002/swagger/index.html
+
 ```
 
 ### Loki

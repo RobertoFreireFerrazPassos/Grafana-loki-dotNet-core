@@ -1,6 +1,22 @@
-﻿# Ensure the Service Fabric cluster you deploy to supports the container image you are using. See https://aka.ms/containerimagehelp for information on Windows container version compatibility.
-FROM mcr.microsoft.com/dotnet/aspnet:6.0
-ARG source
+#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
-COPY ${source:-obj/Docker/publish} .
+EXPOSE 80
+
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+WORKDIR /src
+COPY ["../ApplicationWebB/ApplicationWebB.csproj", "../ApplicationWebB/"]
+COPY ["../Log/Log.csproj", "../Log/"]
+RUN dotnet restore "../ApplicationWebB/ApplicationWebB.csproj"
+COPY . .
+WORKDIR "/src/../ApplicationWebB"
+RUN dotnet build "ApplicationWebB.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "ApplicationWebB.csproj" -c Release -o /app/publish
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "ApplicationWebB.dll"]
