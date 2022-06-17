@@ -1,5 +1,9 @@
 version: '3.4'
 
+volumes:
+  grafana-data:
+  loki-data:
+
 services:
   applicationweb:
     environment:
@@ -15,9 +19,13 @@ services:
   loki:
     container_name: loki
     image: grafana/loki:master
+    restart: unless-stopped
     ports:
        - 3100:3100
     command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - ./loki-config.yaml:/mnt/config/loki-config.yml
+      - loki-data:/loki
     healthcheck:
         test: wget -q --tries=1 -O- http://localhost:3100/ready 
         interval: 3s
@@ -28,6 +36,9 @@ services:
   grafana:
     container_name: grafana
     image: grafana/grafana:master
+    restart: unless-stopped
+    volumes:
+      - grafana-data:/var/lib/grafana
     ports:
       - "3000:3000"
     depends_on:

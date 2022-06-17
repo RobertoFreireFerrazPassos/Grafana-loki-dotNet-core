@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
+using System.Text.Json;
 
 namespace ApplicationWeb.Controllers
 {
@@ -21,7 +22,7 @@ namespace ApplicationWeb.Controllers
                 Result = result,
             };
 
-            Log.ForContext("Extra", data)
+            Log.ForContext("Extra", JsonSerializer.Serialize(data))
                .Information("GetResult succesfully");
 
             return Ok(result);
