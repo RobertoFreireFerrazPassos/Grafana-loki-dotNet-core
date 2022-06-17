@@ -7,13 +7,6 @@ namespace ApplicationWeb.Controllers
     [Route("[controller]")]
     public class ApiTestController : ControllerBase
     {
-        private readonly ILogger<ApiTestController> _logger;
-
-        public ApiTestController(ILogger<ApiTestController> logger)
-        {
-            _logger = logger;
-        }
-
         [HttpGet("Simple/GetResult")]
         public IActionResult GetResult()
         {
@@ -23,9 +16,13 @@ namespace ApplicationWeb.Controllers
                 Identifier = Guid.NewGuid()
             };
 
-            _logger.LogInformation(message : "GetResult succesfully");
+            var data = new
+            {
+                Result = result,
+            };
 
-            Log.Information("Serilog Info", result);
+            Log.ForContext("Extra", data)
+               .Information("GetResult succesfully");
 
             return Ok(result);
         }
@@ -35,12 +32,16 @@ namespace ApplicationWeb.Controllers
         {
             var result = new
             {
-                message = "Error occurr during saving."
+                Message = "Error occurr during saving."
             };
 
-            _logger.LogError(message: result.message);
+            var data = new
+            {
+                Message = result.Message,
+            };
 
-            Log.Information("Serilog Error", result);
+            Log.ForContext("Error", data)
+               .Information("Serilog Error" + result);
 
             return BadRequest(result);
         }
@@ -60,7 +61,13 @@ namespace ApplicationWeb.Controllers
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Exception while computing {A} / {B}");
+                var data = new
+                {
+                    Message = "Exception while computing {A} / {B}",
+                };
+
+                Log.ForContext("Error", data)
+                   .Error(ex, "Exception while computing {A} / {B}");
 
                 return BadRequest("Exception while computing {A} / {B}");
             }            

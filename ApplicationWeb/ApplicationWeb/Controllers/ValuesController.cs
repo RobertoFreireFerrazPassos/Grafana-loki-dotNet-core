@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Serilog;
+using System.Text.Json;
 
 namespace ApplicationWeb.Controllers
 {
@@ -7,13 +8,6 @@ namespace ApplicationWeb.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        private readonly ILogger<ValuesController> _logger;
-
-        public ValuesController(ILogger<ValuesController> logger)
-        {
-            _logger = logger;
-        }
-
         [HttpGet("GetValue")]
         public IActionResult GetResult()
         {
@@ -21,9 +15,13 @@ namespace ApplicationWeb.Controllers
 
             int result = r.Next(0, 100);
 
-            _logger.LogInformation(message: result.ToString());
+            var data = new
+            {
+                Result = result,
+            };
 
-            Log.Information("Serilog Values", result);
+            Log.ForContext("Extra", data)
+               .Information(JsonSerializer.Serialize(data));
 
             return Ok(result);
         }
