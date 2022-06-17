@@ -109,6 +109,8 @@ https://medium.com/c-sharp-progarmming/net-core-microservice-logging-with-grafan
 
 https://henriquemauri.net/coletando-logs-com-o-serilog-no-net-6/
 
+https://linuxblog.xyz/posts/grafana-loki/
+
 Queries in Loki Grafana:
 
 https://grafana.com/docs/loki/latest/logql/log_queries/

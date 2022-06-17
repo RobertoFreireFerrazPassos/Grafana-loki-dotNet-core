@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Serilog;
-using System.Text.Json;
+using LogLibrary;
 
 namespace ApplicationWeb.Controllers
 {
@@ -22,8 +21,7 @@ namespace ApplicationWeb.Controllers
                 Result = result,
             };
 
-            Log.ForContext("Extra", JsonSerializer.Serialize(data))
-               .Information("GetResult succesfully");
+            Logger.Information(data,"got result succesfully");
 
             return Ok(result);
         }
@@ -33,16 +31,10 @@ namespace ApplicationWeb.Controllers
         {
             var result = new
             {
-                Message = "Error occurr during saving."
+                Message = "Error occurr during saving.",
             };
 
-            var data = new
-            {
-                Message = result.Message,
-            };
-
-            Log.ForContext("Error", data)
-               .Information("Serilog Error" + result);
+            Logger.Error(result, result.Message);
 
             return BadRequest(result);
         }
@@ -55,22 +47,22 @@ namespace ApplicationWeb.Controllers
 
             try
             {
-                Log.Debug("Result = {A} / {B}", a, b);
                 result = a / b;
 
                 return Ok(result);
             }
             catch (Exception ex)
             {
+                var errorMessage = "Exception while computing {A} / {B}";
+
                 var data = new
                 {
-                    Message = "Exception while computing {A} / {B}",
+                    Message = errorMessage,
                 };
 
-                Log.ForContext("Error", data)
-                   .Error(ex, "Exception while computing {A} / {B}");
+                Logger.Error(ex, data, errorMessage);
 
-                return BadRequest("Exception while computing {A} / {B}");
+                return BadRequest(errorMessage);
             }            
         }
     }

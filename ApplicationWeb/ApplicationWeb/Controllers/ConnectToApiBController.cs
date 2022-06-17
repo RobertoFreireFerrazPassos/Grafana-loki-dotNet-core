@@ -5,7 +5,7 @@ namespace ApplicationWeb.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class ConnectToApiBController : ControllerBase
     {
         [HttpGet("GetValue")]
         public IActionResult GetResult()
@@ -21,7 +21,7 @@ namespace ApplicationWeb.Controllers
 
             Logger.Information(data);
 
-            return Ok(result);
+            return Ok();
         }
     }
 }
