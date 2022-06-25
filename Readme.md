@@ -1,7 +1,6 @@
 # LogQL
 
-The basic idea of querying logs in loki in Grafana is to:
-query,filter, parse, format, and agrregate the logs
+The basic idea of querying logs in loki in Grafana is to query, filter, parse, format, and agrregate the logs
 
 LogQL (Grafana Loki’s query language) uses **labels** and operators for filtering
 
