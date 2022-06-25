@@ -57,6 +57,18 @@ Basic example
 It can mutate the log content
 ```
 {Application ="ApplicationWeb"} | line_format "{{.Path}}"
+
+{Application="ApplicationWeb",Extra="{ Result = 85 }"} | line_format "{{ .Extra}}" 
+```
+
+JSON parse not working
+```
+{Application="ApplicationWeb",Extra="{ Result = 85 }"} | line_format "{{ .Extra}}"  | json Extra="Extra"
+```
+
+JSON parse working
+```
+{Application="ApplicationWeb",Extra="{ }"} | line_format "{{ .Extra}}" | json New_Label="extra"
 ```
 
 #### Metric Queries

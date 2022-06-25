@@ -3,30 +3,49 @@ using System.Text.Json;
 
 namespace LogLibrary
 {
+    public class LogData
+    {
+        public object Content { get; set; }
+
+        public object Error { get; set; }
+
+        public string LogId = Guid.NewGuid().ToString();
+
+        public DateTime TimeStamp = DateTime.UtcNow;
+    }
+
     public static class Logger
     {
-        public static void Information(object data)
+        public static void Information(object content)
         {
-            Log.ForContext("Extra", data)
-               .Information(JsonSerializer.Serialize(data));
+            var dataLog = new LogData() { Content = content };
+
+            Log.ForContext("AdditionalData", JsonSerializer.Serialize(dataLog))
+               .Information(JsonSerializer.Serialize(content));
         }
 
-        public static void Information(object data, string message)
+        public static void Information(object content, string message)
         {
-            Log.ForContext("Extra", data)
+            var dataLog = new LogData() { Content = content };
+
+            Log.ForContext("AdditionalData", JsonSerializer.Serialize(dataLog))               
                .Information(message);
         }
 
-        public static void Error(Exception ex, object data, string message)
+        public static void Error(object error, string message)
         {
-            Log.ForContext("Error",data)
-                  .Error(ex, message);
+            var dataLog = new LogData() { Error = error };
+
+            Log.ForContext("AdditionalData", JsonSerializer.Serialize(dataLog))
+               .Information(message);
         }
 
-        public static void Error(object data, string message)
+        public static void Error(Exception ex, object error, string message)
         {
-            Log.ForContext("Error", data)
-                  .Information(message);
+            var dataLog = new LogData() { Error = error };
+
+            Log.ForContext("AdditionalData", JsonSerializer.Serialize(dataLog))               
+               .Error(ex, message);
         }
     }
 }

@@ -24,7 +24,6 @@ services:
        - 3100:3100
     command: -config.file=/etc/loki/local-config.yaml
     volumes:
-      - ./loki-config.yaml:/mnt/config/loki-config.yml
       - loki-data:/loki
     healthcheck:
         test: wget -q --tries=1 -O- http://localhost:3100/ready 
@@ -32,16 +31,6 @@ services:
         timeout: 3s
         retries: 10
         start_period: 10s
-
-  promtail:
-    build: promtail
-    restart: unless-stopped
-    volumes:
-      - /var/log:/var/log
-    command: -config.file=/etc/promtail/promtail-config.yaml
-    depends_on:
-        loki:
-            condition: service_healthy
 
   grafana:
     container_name: grafana

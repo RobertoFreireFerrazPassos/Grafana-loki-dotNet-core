@@ -8,8 +8,6 @@ namespace ApplicationWeb.Controllers
     public class Data
     {
         public string Name { get; set; }
-        public string[] Values { get; set; }
-        public IEnumerable<string> List { get; set; }
     }
 
     [ApiController]
@@ -21,7 +19,7 @@ namespace ApplicationWeb.Controllers
         {
             var message = "Save Data succesfully";
 
-            Logger.Information(dataRequest, message);
+            Logger.Information(dataRequest);
 
             return Ok(message);
         }

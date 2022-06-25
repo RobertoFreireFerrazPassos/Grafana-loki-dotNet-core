@@ -8,7 +8,6 @@ try
     Log.Logger = new LoggerConfiguration()
                         .MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Warning)
                         .Enrich.FromLogContext()
-                        .WriteTo.Console()
                         .CreateLogger();
 
     Log.Information("Staring the Host");
@@ -19,7 +18,7 @@ try
         {
             cfg.Enrich.WithProperty("Application", ctx.HostingEnvironment.ApplicationName)
                 .Enrich.WithProperty("Environment", ctx.HostingEnvironment.EnvironmentName)
-                .WriteTo.GrafanaLoki(ctx.Configuration["Loki"]);
+                .WriteTo.GrafanaLoki(ctx.Configuration["Loki"], outputTemplate: "{Message}");
         });
 
     builder.Services.AddControllers();
