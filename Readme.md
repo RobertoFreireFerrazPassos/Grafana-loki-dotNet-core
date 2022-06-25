@@ -4,9 +4,10 @@ The basic idea of querying logs in loki in Grafana is to query, filter, parse, f
 
 LogQL (Grafana Loki’s query language) uses **labels** and operators for filtering
 
-<p align="center">
-  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/log_queries.PNG?raw=true">
-</p>
+There are two types of LogQL queries:
+
+**Log queries** return the contents of log lines.
+**Metric queries** extend log queries to calculate values based on query results.
 
 # Steps to Run:
 
@@ -37,7 +38,11 @@ http://localhost:4001/swagger/index.html
 
 ```
 
-# Log Queries in Loki Grafana
+# Log Queries
+
+<p align="center">
+  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/log_queries.PNG?raw=true">
+</p>
 
 ## Log Queries
 
@@ -150,22 +155,64 @@ The " | label_format" expression can rename, modify or add labels.
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/label_formatexample1.PNG?raw=true">
 </p>
 
-### Metric Queries
 
-Draft: try to understand this query
-```
-count_over_time({Application="ApplicationWeb",RequestPath="/api/Values/GetValue",SourceContext="ApplicationWeb.Controllers.ValuesController"}[5m])
-```
+# Metric Queries
 
-Draft: try to understand this query
-```
-sum(rate({Application="ApplicationWeb",RequestPath="/api/Values/GetValue",SourceContext="ApplicationWeb.Controllers.ValuesController"} [10s]))
-```
+Metric queries extend log queries by applying a function to log query results.
 
-Draft: try to understand this query
-```
-sum(count_over_time({Application="ApplicationWeb",RequestPath="/api/Values/GetValue",SourceContext="ApplicationWeb.Controllers.ValuesController"}[10s]))
-```
+In Grafana Loki, the selected range of samples is a **range of selected log or label values**. 
+
+Loki supports two types of this **range vector** aggregations: 
+
+1 - Log range aggregations 
+
+2 - Unwrapped range aggregations.
+
+## Log range aggregations
+
+A log range aggregation is a query followed by a duration.
+
+### rate(log-range): calculates the number of entries per second
+
+Ex: rate({Application="ApplicationWeb", StatusCode="400"} [1s])
+
+<p align="center">
+  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/rateexample1.PNG?raw=true">
+</p>
+
+
+## Unwrapped range aggregations.
+
+Unwrapped ranges uses extracted labels as sample values instead of log lines.
+
+However to select which label will be used within the aggregation, the log query must end with an unwrap expression and optionally a label filter expression to discard errors.
+
+The unwrap expression is noted | unwrap label_identifier where the label identifier is the label name to use for extracting sample values.
+
+### sum_over_time(unwrapped-range): the sum of all values in the specified interval.
+
+Ex: sum_over_time({Application="ApplicationWeb", StatusCode="400"} | unwrap ElapsedMilliseconds [1m])
+
+<p align="center">
+  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/sum_over_timeexample1.PNG?raw=true">
+</p>
+
+## Built-in Aggregation operators
+
+### sum: Calculate sum over labels
+
+Ex: sum(rate({Application="ApplicationWeb", StatusCode="400"} [1s]))
+
+<p align="center">
+  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/sum_rateexample1.PNG?raw=true">
+</p>
+
+Ex: sum(sum_over_time({Application="ApplicationWeb", StatusCode="400"} | unwrap ElapsedMilliseconds [10s]))
+
+<p align="center">
+  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/sum_sum_over_timeexample1.PNG?raw=true">
+</p>
+
 # References:
 
 Project setup:
@@ -192,6 +239,8 @@ https://grafana.com/blog/2020/10/28/loki-2.0-released-transform-logs-as-youre-qu
 
 https://grafana.com/blog/2020/08/27/the-concise-guide-to-labels-in-loki/
 
-https://grafana.com/blog/2020/04/21/how-labels-in-loki-can-make-log-queries-faster-and-easier/#what-is-a-label?
+https://grafana.com/blog/2020/04/21/how-labels-in-loki-can-make-log-queries-faster-and-easier/#what-is-a-label
+
+https://grafana.com/blog/2022/05/12/10-things-you-didnt-know-about-logql/?utm_source=grafana_news&utm_medium=rss
 
 
