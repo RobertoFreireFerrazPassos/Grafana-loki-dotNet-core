@@ -1,12 +1,13 @@
 # LogQL
 
-The basic idea of querying logs in loki in Grafana is to query, filter, parse, format, and agrregate the logs
+The basic idea of querying logs in loki in Grafana is to query, filter, parse, format and agregate the logs
 
 LogQL (Grafana Loki’s query language) uses **labels** and operators for filtering
 
 There are two types of LogQL queries:
 
 **Log queries** return the contents of log lines.
+
 **Metric queries** extend log queries to calculate values based on query results.
 
 # Steps to Run:
@@ -100,7 +101,7 @@ Same result as:
 
 ### Log pipeline: Parsing expressions
 
-It **cannot** filter by "Detected fields"
+It **cannot** filter in the "Stream Selector" by "Detected fields"
 ```
 {Application="ApplicationWeb", LogId="78b952af-bd57-45da-8c8c-52171c952b73"} 
 ```
