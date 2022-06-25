@@ -9,6 +9,7 @@ Name: ApplicationWeb
 Url: http://Loki:3100
 click in Save & test
 
+After run some endpoint in swagger:
 Go to Explore, 
 In Log Browser, Run query 
 {Application="ApplicationWeb"}
@@ -16,7 +17,7 @@ In Log Browser, Run query
 
 ### Swagger:
 
-Run a endpoint and see new logs in the Grafana
+Run all endpoints to see new logs in the Grafana
 
 ```
 ApplicationWeb
@@ -37,21 +38,38 @@ http://localhost:4001/swagger/index.html
 **AND** logic:
 
 ```
-Query by RequestPath AND StatusCode
-{RequestPath="/ApiTest/GetResult",StatusCode="200"}
+Query by Application AND StatusCode
+
+{Application="ApplicationWeb",StatusCode="200"}
 ```
 
 **=~** for regex matches:
 ```
-Query by Application and both StatusCode
+Query by Application and both 200 and 400 status codes
+
 {Application="ApplicationWeb",StatusCode=~"200|400"}
 ```
 
+##### Line filter expression
+
+```
+|=: Log line contains string
+!=: Log line does not contain string
+|~: Log line contains a match to the regular expression
+!~: Log line does not contain a match to the regular expression
+```
+
+Ex: {Application="ApplicationWeb"} |= "Conten"
+
+<p align="center">
+  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/linefilterexpressionexample1.PNG?raw=true">
+</p>
+
 ##### Pipeline Json
 
-It cannot filter by "Detected fields"
+It **cannot** filter by "Detected fields"
 ```
-{Application="ApplicationWeb", LogId="292d74e6-3899-439d-876f-f99596d350a0"} 
+{Application="ApplicationWeb", LogId="78b952af-bd57-45da-8c8c-52171c952b73"} 
 ```
 
 First, it must parse using '| json', so "Detected fields" become "Log labels"

@@ -15,6 +15,7 @@ try
         .UseSerilog((ctx, cfg) =>
         {
             cfg.MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Error)
+               .MinimumLevel.Override("Microsoft.AspNetCore.Hosting.Diagnostics", Serilog.Events.LogEventLevel.Information)
                 .Enrich.WithProperty("Application", ctx.HostingEnvironment.ApplicationName)
                 .Enrich.WithProperty("Environment", ctx.HostingEnvironment.EnvironmentName)
                 .WriteTo.GrafanaLoki(ctx.Configuration["Loki"], outputTemplate: "{Message}");
