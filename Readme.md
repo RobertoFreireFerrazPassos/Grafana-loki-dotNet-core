@@ -1,31 +1,3 @@
-## Next Steps
-
-Api A must request to api B
-
-Add Cancelation Token and configure timeout
-
-Add endpoint to test cancelation token working
-
-Add endpoint to test timeout working
-
-Add endpoints to get info data from api B to Api A
-
-Add POST endpoints
-
-Add Trace for a request across Api A and B
-
-Add label for application Api
-
-Try to add metrics:
-
-- Requests by endpoint by min
-
-- Requests by api
-
-- Requests by status code
-
-- All errors
-
 ## Steps to Run:
 
 ### Grafana: 
