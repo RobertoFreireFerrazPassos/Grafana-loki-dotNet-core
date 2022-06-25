@@ -6,7 +6,6 @@ try
     var builder = WebApplication.CreateBuilder(args);
 
     Log.Logger = new LoggerConfiguration()
-                        .MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Fatal)
                         .CreateLogger();
 
     Log.Information("Staring the Host");
@@ -15,7 +14,8 @@ try
         .Host
         .UseSerilog((ctx, cfg) =>
         {
-            cfg.Enrich.WithProperty("Application", ctx.HostingEnvironment.ApplicationName)
+            cfg.MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Error)
+                .Enrich.WithProperty("Application", ctx.HostingEnvironment.ApplicationName)
                 .Enrich.WithProperty("Environment", ctx.HostingEnvironment.EnvironmentName)
                 .WriteTo.GrafanaLoki(ctx.Configuration["Loki"], outputTemplate: "{Message}");
         });
