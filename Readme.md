@@ -47,7 +47,7 @@ Query by Application and both StatusCode
 {Application="ApplicationWeb",StatusCode=~"200|400"}
 ```
 
-##### Json
+##### Pipeline Json
 
 It cannot filter by "Detected fields"
 ```
@@ -59,6 +59,18 @@ Then, it can filter.
 ```
 {Application="ApplicationWeb"} | json | LogId="292d74e6-3899-439d-876f-f99596d350a0"
 ```
+
+"| json" will produce the following mapping: 
+
+```
+{ "a.b": {c: "d"}, e: "f" } -> {a_b_c="d", e="f"}
+
+```
+Ex: {Application="ApplicationWeb"} | json
+
+<p align="center">
+  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/jsonexample2.PNG?raw=true">
+</p>
 
 It can create new labels 
 ```
