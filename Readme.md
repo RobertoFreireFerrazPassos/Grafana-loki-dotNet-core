@@ -1,3 +1,6 @@
+
+The basic idea of querying logs in loki in Grafana is to filter, process and agrregate labels
+
 # Steps to Run:
 
 Set docker-compose as start up project on Visual Studio and run Docker compose
@@ -52,7 +55,7 @@ Query by Application and both 200 and 400 status codes
 {Application="ApplicationWeb",StatusCode=~"200|400"}
 ```
 
-### Line filter expression
+### Log pipeline: Line filter expressions
 
 ```
 |=: Log line contains string
@@ -67,7 +70,7 @@ Ex: {Application="ApplicationWeb"} |= "Conten"
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/linefilterexpressionexample1.PNG?raw=true">
 </p>
 
-### label filter operation
+### Log pipeline: Label filter expressions
 
 Basic example
 
@@ -83,16 +86,10 @@ Same result as:
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/labelfilteroperationexample1.PNG?raw=true">
 </p>
 
-It can mutate the log content using line_format
-```
-{Application ="ApplicationWeb"} | line_format "{{.Path}}"
-```
 
-<p align="center">
-  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/line_formatexample1.PNG?raw=true">
-</p>
 
-### Pipeline Json
+
+### Log pipeline: Parsing expressions
 
 It **cannot** filter by "Detected fields"
 ```
@@ -125,6 +122,21 @@ It can create new labels
 <p align="center">
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/jsonexample1.PNG?raw=true">
 </p>
+
+
+### Log pipeline: Line format expressions 
+
+It can mutate the log content using line_format
+```
+{Application ="ApplicationWeb"} | line_format "{{.Path}}"
+```
+
+<p align="center">
+  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/line_formatexample1.PNG?raw=true">
+</p>
+
+### Log pipeline: Label format expressions
+
 
 ### Metric Queries
 
