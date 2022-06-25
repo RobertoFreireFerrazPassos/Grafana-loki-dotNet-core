@@ -65,6 +65,11 @@ It can create new labels
 {Application="ApplicationWeb"} | json | LogId="292d74e6-3899-439d-876f-f99596d350a0" | json new_label="Content"
 ```
 
+<p align="center">
+  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/jsonexample1.PNG?raw=true">
+</p>
+
+
 ##### Optional log Pipeline (line/label filter operation)
 
 Basic example
