@@ -49,8 +49,6 @@ Run a endpoint and see new logs in the Grafana
 ```
 ApplicationWeb
 http://localhost:4001/swagger/index.html
-ApplicationWebB
-http://localhost:4002/swagger/index.html
 
 ```
 
@@ -68,7 +66,7 @@ http://localhost:4002/swagger/index.html
 
 ```
 Query by RequestPath AND StatusCode
-{RequestPath="/ApiTest/Simple/GetResult",StatusCode="200"}
+{RequestPath="/ApiTest/GetResult",StatusCode="200"}
 ```
 
 **=~** for regex matches:
@@ -122,5 +120,9 @@ https://grafana.com/docs/loki/latest/logql/log_queries/
 https://grafana.com/docs/loki/latest/logql/metric_queries/
 
 https://megamorf.gitlab.io/cheat-sheets/loki/
+
+https://sbcode.net/grafana/logql/
+
+https://www.youtube.com/watch?v=HDpE9v1Syz8&ab_channel=SBCODE
 
 

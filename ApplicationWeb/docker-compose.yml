@@ -7,9 +7,3 @@ services:
       context: .
       dockerfile: ApplicationWeb/Dockerfile
 
-  applicationwebb:
-    image: ${DOCKER_REGISTRY-}applicationwebb
-    build:
-      context: .
-      dockerfile: ../ApplicationWebB/Dockerfile
-

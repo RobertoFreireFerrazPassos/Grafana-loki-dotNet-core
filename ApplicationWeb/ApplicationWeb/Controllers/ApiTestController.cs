@@ -1,13 +1,32 @@
 using Microsoft.AspNetCore.Mvc;
 using LogLibrary;
+using Serilog;
+using System.Text.Json;
 
 namespace ApplicationWeb.Controllers
 {
+    public class Data
+    {
+        public string Name { get; set; }
+        public string[] Values { get; set; }
+        public IEnumerable<string> List { get; set; }
+    }
+
     [ApiController]
     [Route("[controller]")]
     public class ApiTestController : ControllerBase
     {
-        [HttpGet("Simple/GetResult")]
+        [HttpPost("SaveData")]
+        public IActionResult SaveData(Data dataRequest)
+        {
+            var message = "Save Data succesfully";
+
+            Logger.Information(dataRequest, message);
+
+            return Ok(message);
+        }
+
+        [HttpGet("GetResult")]
         public IActionResult GetResult()
         {
             var result = new
@@ -26,7 +45,7 @@ namespace ApplicationWeb.Controllers
             return Ok(result);
         }
 
-        [HttpGet("Simple/BadResult")]
+        [HttpGet("BadResult")]
         public IActionResult BadResult()
         {
             var result = new
@@ -39,31 +58,21 @@ namespace ApplicationWeb.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("Simple/Exception")]
-        public IActionResult Exception()
+        [HttpGet("GetValue")]
+        public IActionResult GetValue()
         {
-            int a = 10, b = 0;
-            int result;
+            Random r = new Random();
 
-            try
+            int result = r.Next(0, 100);
+
+            var data = new
             {
-                result = a / b;
+                Result = result,
+            };
 
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                var errorMessage = "Exception while computing {A} / {B}";
+            Logger.Information(data);
 
-                var data = new
-                {
-                    Message = errorMessage,
-                };
-
-                Logger.Error(ex, data, errorMessage);
-
-                return BadRequest(errorMessage);
-            }            
+            return Ok(result);
         }
     }
 }
