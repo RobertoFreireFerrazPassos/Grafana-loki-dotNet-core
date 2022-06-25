@@ -1,5 +1,13 @@
+# LogQL
 
-The basic idea of querying logs in loki in Grafana is to filter, process and agrregate labels
+The basic idea of querying logs in loki in Grafana is to:
+query,filter, parse, format, and agrregate the logs
+
+LogQL (Grafana Loki’s query language) uses **labels** and operators for filtering
+
+<p align="center">
+  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/log_queries.PNG?raw=true">
+</p>
 
 # Steps to Run:
 
@@ -86,9 +94,6 @@ Same result as:
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/labelfilteroperationexample1.PNG?raw=true">
 </p>
 
-
-
-
 ### Log pipeline: Parsing expressions
 
 It **cannot** filter by "Detected fields"
@@ -137,6 +142,14 @@ It can mutate the log content using line_format
 
 ### Log pipeline: Label format expressions
 
+The " | label_format" expression can rename, modify or add labels.
+```
+{Path="/ApiTest/BadResult"} | label_format New_Label_Endpoint=Path
+```
+
+<p align="center">
+  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/label_formatexample1.PNG?raw=true">
+</p>
 
 ### Metric Queries
 
@@ -175,5 +188,11 @@ https://megamorf.gitlab.io/cheat-sheets/loki/
 https://sbcode.net/grafana/logql/
 
 https://www.youtube.com/watch?v=HDpE9v1Syz8&ab_channel=SBCODE
+
+https://grafana.com/blog/2020/10/28/loki-2.0-released-transform-logs-as-youre-querying-them-and-set-up-alerts-within-loki/
+
+https://grafana.com/blog/2020/08/27/the-concise-guide-to-labels-in-loki/
+
+https://grafana.com/blog/2020/04/21/how-labels-in-loki-can-make-log-queries-faster-and-easier/#what-is-a-label?
 
 
