@@ -1,6 +1,6 @@
-## Steps to Run:
+# Steps to Run:
 
-### Grafana: 
+## Grafana: 
 ```
 Link: http://localhost:3000/
 Default user name and password will be "admin"
@@ -15,7 +15,7 @@ In Log Browser, Run query
 {Application="ApplicationWeb"}
 ```
 
-### Swagger:
+## Swagger:
 
 Run all endpoints to see new logs in the Grafana
 
@@ -25,11 +25,11 @@ http://localhost:4001/swagger/index.html
 
 ```
 
-### Loki
+# Log Queries in Loki Grafana
 
-#### Log Queries
+## Log Queries
 
-##### Stream Selector
+### Stream Selector
 
 ```
 {Application="ApplicationWeb"}
@@ -50,7 +50,7 @@ Query by Application and both 200 and 400 status codes
 {Application="ApplicationWeb",StatusCode=~"200|400"}
 ```
 
-##### Line filter expression
+### Line filter expression
 
 ```
 |=: Log line contains string
@@ -65,7 +65,7 @@ Ex: {Application="ApplicationWeb"} |= "Conten"
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/linefilterexpressionexample1.PNG?raw=true">
 </p>
 
-##### Pipeline Json
+### Pipeline Json
 
 It **cannot** filter by "Detected fields"
 ```
@@ -100,7 +100,7 @@ It can create new labels
 </p>
 
 
-##### Optional log Pipeline (line/label filter operation)
+### Optional log Pipeline (line/label filter operation)
 
 Basic example
 ```
@@ -114,7 +114,7 @@ It can mutate the log content
 {Application="ApplicationWeb",Extra="{ Result = 85 }"} | line_format "{{ .Extra}}" 
 ```
 
-#### Metric Queries
+### Metric Queries
 
 Draft: try to understand this query
 ```
@@ -130,7 +130,7 @@ Draft: try to understand this query
 ```
 sum(count_over_time({Application="ApplicationWeb",RequestPath="/api/Values/GetValue",SourceContext="ApplicationWeb.Controllers.ValuesController"}[10s]))
 ```
-## References:
+# References:
 
 Project setup:
 
