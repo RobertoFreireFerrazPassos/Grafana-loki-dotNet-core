@@ -38,7 +38,7 @@ namespace ApplicationWeb.Controllers
                 Result = result,
             };
 
-            Logger.Information(data,"got result succesfully");
+            Logger.Information(data);
 
             return Ok(result);
         }
@@ -51,7 +51,7 @@ namespace ApplicationWeb.Controllers
                 Message = "Error occurr during saving.",
             };
 
-            Logger.Error(result, result.Message);
+            Logger.Information(result, result.Message);
 
             return BadRequest(result);
         }

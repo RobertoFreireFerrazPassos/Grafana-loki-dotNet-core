@@ -6,8 +6,7 @@ try
     var builder = WebApplication.CreateBuilder(args);
 
     Log.Logger = new LoggerConfiguration()
-                        .MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Warning)
-                        .Enrich.FromLogContext()
+                        .MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Fatal)
                         .CreateLogger();
 
     Log.Information("Staring the Host");

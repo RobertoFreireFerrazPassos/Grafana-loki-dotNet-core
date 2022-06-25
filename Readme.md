@@ -31,7 +31,7 @@ http://localhost:4001/swagger/index.html
 ##### Stream Selector
 
 ```
-{Application="ApplicationWeb",Extra="{ Result = 65 }"}
+{Application="ApplicationWeb"}
 ```
 
 **AND** logic:
@@ -47,6 +47,24 @@ Query by Application and both StatusCode
 {Application="ApplicationWeb",StatusCode=~"200|400"}
 ```
 
+##### Json
+
+It cannot filter by "Detected fields"
+```
+{Application="ApplicationWeb", LogId="292d74e6-3899-439d-876f-f99596d350a0"} 
+```
+
+First, it must parse using '| json', so "Detected fields" become "Log labels"
+Then, it can filter.
+```
+{Application="ApplicationWeb"} | json | LogId="292d74e6-3899-439d-876f-f99596d350a0"
+```
+
+It can create new labels 
+```
+{Application="ApplicationWeb"} | json | LogId="292d74e6-3899-439d-876f-f99596d350a0" | json new_label="Content"
+```
+
 ##### Optional log Pipeline (line/label filter operation)
 
 Basic example
@@ -59,16 +77,6 @@ It can mutate the log content
 {Application ="ApplicationWeb"} | line_format "{{.Path}}"
 
 {Application="ApplicationWeb",Extra="{ Result = 85 }"} | line_format "{{ .Extra}}" 
-```
-
-JSON parse not working
-```
-{Application="ApplicationWeb",Extra="{ Result = 85 }"} | line_format "{{ .Extra}}"  | json Extra="Extra"
-```
-
-JSON parse working
-```
-{Application="ApplicationWeb",Extra="{ }"} | line_format "{{ .Extra}}" | json New_Label="extra"
 ```
 
 #### Metric Queries

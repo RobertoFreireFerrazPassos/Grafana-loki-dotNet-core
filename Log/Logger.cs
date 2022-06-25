@@ -6,46 +6,32 @@ namespace LogLibrary
     public class LogData
     {
         public object Content { get; set; }
+        public Exception Exception { get; set; }
+        public string Message { get; set; }
+        public string LogId { get; set; }
+        public DateTime TimeStamp { get; set; }
 
-        public object Error { get; set; }
-
-        public string LogId = Guid.NewGuid().ToString();
-
-        public DateTime TimeStamp = DateTime.UtcNow;
+        public LogData() 
+        {
+            LogId = Guid.NewGuid().ToString();
+            TimeStamp = DateTime.UtcNow;
+        }        
     }
 
     public static class Logger
     {
-        public static void Information(object content)
+        public static void Information(object content, string message = "")
         {
-            var dataLog = new LogData() { Content = content };
+            var dataLog = new LogData() { Content = content, Message = message  };
 
-            Log.ForContext("AdditionalData", JsonSerializer.Serialize(dataLog))
-               .Information(JsonSerializer.Serialize(content));
+            Log.Information(JsonSerializer.Serialize(dataLog));
         }
 
-        public static void Information(object content, string message)
+        public static void Error(Exception ex, string message = "")
         {
-            var dataLog = new LogData() { Content = content };
+            var dataLog = new LogData() { Exception = ex, Message = message };
 
-            Log.ForContext("AdditionalData", JsonSerializer.Serialize(dataLog))               
-               .Information(message);
-        }
-
-        public static void Error(object error, string message)
-        {
-            var dataLog = new LogData() { Error = error };
-
-            Log.ForContext("AdditionalData", JsonSerializer.Serialize(dataLog))
-               .Information(message);
-        }
-
-        public static void Error(Exception ex, object error, string message)
-        {
-            var dataLog = new LogData() { Error = error };
-
-            Log.ForContext("AdditionalData", JsonSerializer.Serialize(dataLog))               
-               .Error(ex, message);
+            Log.Information(JsonSerializer.Serialize(dataLog));
         }
     }
 }
