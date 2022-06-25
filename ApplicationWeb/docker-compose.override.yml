@@ -33,6 +33,16 @@ services:
         retries: 10
         start_period: 10s
 
+  promtail:
+    build: promtail
+    restart: unless-stopped
+    volumes:
+      - /var/log:/var/log
+    command: -config.file=/etc/promtail/promtail-config.yaml
+    depends_on:
+        loki:
+            condition: service_healthy
+
   grafana:
     container_name: grafana
     image: grafana/grafana:master
