@@ -1,5 +1,7 @@
 # Steps to Run:
 
+Set docker-compose as start up project on Visual Studio and run Docker compose
+
 ## Grafana: 
 ```
 Link: http://localhost:3000/
@@ -65,6 +67,31 @@ Ex: {Application="ApplicationWeb"} |= "Conten"
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/linefilterexpressionexample1.PNG?raw=true">
 </p>
 
+### label filter operation
+
+Basic example
+
+```
+{Application ="ApplicationWeb"} | StatusCode = 400
+
+Same result as:
+
+{Application ="ApplicationWeb", StatusCode="400"}
+```
+
+<p align="center">
+  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/labelfilteroperationexample1.PNG?raw=true">
+</p>
+
+It can mutate the log content using line_format
+```
+{Application ="ApplicationWeb"} | line_format "{{.Path}}"
+```
+
+<p align="center">
+  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/line_formatexample1.PNG?raw=true">
+</p>
+
 ### Pipeline Json
 
 It **cannot** filter by "Detected fields"
@@ -98,21 +125,6 @@ It can create new labels
 <p align="center">
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/jsonexample1.PNG?raw=true">
 </p>
-
-
-### Optional log Pipeline (line/label filter operation)
-
-Basic example
-```
-{Application ="ApplicationWeb"} | StatusCode != 200
-```
-
-It can mutate the log content
-```
-{Application ="ApplicationWeb"} | line_format "{{.Path}}"
-
-{Application="ApplicationWeb",Extra="{ Result = 85 }"} | line_format "{{ .Extra}}" 
-```
 
 ### Metric Queries
 
