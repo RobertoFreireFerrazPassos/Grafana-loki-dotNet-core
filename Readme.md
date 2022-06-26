@@ -196,6 +196,8 @@ Ex: sum_over_time({Application="ApplicationWeb", StatusCode="400"} | unwrap Elap
 
 ## Built-in Aggregation operators
 
+We can use built-in aggregation operators over either log or unwrapped range aggregations.
+
 **sum**
 
 Ex: sum(rate({Application="ApplicationWeb", StatusCode="400"} [1s]))
