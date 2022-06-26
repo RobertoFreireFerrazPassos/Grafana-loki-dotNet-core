@@ -2,7 +2,7 @@
 
 The basic idea of querying logs in loki in Grafana is to query, filter, parse, format and agregate the logs
 
-LogQL (Grafana Loki�s query language) uses **labels** to facilitate filtering log lines
+LogQL (Grafana Loki's query language) uses **labels** to facilitate filtering log lines
 
 There are two types of LogQL queries:
 
@@ -36,7 +36,6 @@ Run all endpoints to see new logs in the Grafana
 ```
 ApplicationWeb
 http://localhost:4001/swagger/index.html
-
 ```
 
 # Log Queries
@@ -116,7 +115,6 @@ Then, it can filter.
 
 ```
 { "a.b": {c: "d"}, e: "f" } -> {a_b_c="d", e="f"}
-
 ```
 Ex: {Application="ApplicationWeb"} | json
 
