@@ -84,12 +84,7 @@ There are two types of LogQL queries:
 
 ### Stream Selector
 
-```
-{Application="ApplicationWeb"}
-```
-
-**Label matching operator**
-
+**Label matching operators**
 ```
 =: exactly equal
 !=: not equal
@@ -136,14 +131,13 @@ Ex: {Application="ApplicationWeb"} |~ "Request .* HTTP"
 
 ### Log pipeline: Label filter expressions
 
-1 - For **string**, uses **Label matching operator**
+1 - For **string**, uses **Label matching operators**
 
 Ex: {Application="ApplicationWeb"} | json | SourceContext != "Microsoft.AspNetCore.Hosting.Diagnostics"
 
 <p align="center">
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/labelfilteroperationexample2.PNG?raw=true">
 </p>
-
 
 2 - For **duration**, **number** and **bytes**
 
