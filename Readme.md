@@ -1,6 +1,6 @@
 # Project Overview
 
-This projects uses Docker (with volumes to keep the data logs and grafana settings), Loki (to log), Grafana (to visualize the log), AspNet Core and Serilog (log library).
+This projects uses **Docker** (with volumes to keep the data logs and grafana settings), **Loki** (to save log), **Grafana** (to visualize the log), **WebApi in AspNet Core using Serilog** (log library).
 
 # Steps to Run:
 
@@ -18,15 +18,20 @@ Run command "docker compose up"
 
 ## Grafana: 
 
-Configure:
+#### Add new Data Source:
 ```
 Link: http://localhost:3000/
 Default user name and password will be "admin"
-Add new Data Source
+
+click on "Add new Data Source"
 Name: ApplicationWeb
 Url: http://Loki:3100
-click in Save & test
 
+click on "Save & test"
+```
+
+#### Run query
+```
 After run some endpoint in swagger:
 Go to Explore, 
 In Log Browser, Run query 
@@ -36,26 +41,31 @@ In Log Browser, Run query
 ## Swagger:
 
 Run all endpoints to see new logs in the Grafana
-
 ```
 ApplicationWeb (ApiTest)
 http://localhost:4001/swagger/index.html
+```
 
-There are 5 endpoints:
+#### Endpoints:
 
 1 - ApiTest/SaveData
+```
 It logs the data request
-
+```
 2 - ApiTest/GetResult
+```
 It logs some new data and returns it
-
+```
 3 - ApiTest/BadResult
+```
 It logs information about error and returns bad request
-
+```
 4 - ApiTest/Exception
+```
 It throws error, logs error and returns bad request
-
+```
 5 - ApiTest/GetValue
+```
 Generates number between 0 and 100, logs this number and returns it
 ```
 
@@ -131,7 +141,7 @@ Ex: {Application="ApplicationWeb"} |~ "Request .* HTTP"
 
 ### Log pipeline: Label filter expressions
 
-1 - For **string**, uses **Label matching operators**
+1 - For **string**, uses **Label matching operators** (=, !=, =~ and !~)
 
 Ex: {Application="ApplicationWeb"} | json | SourceContext != "Microsoft.AspNetCore.Hosting.Diagnostics"
 
@@ -197,21 +207,21 @@ Content { "Result" : 34 } -> Content_Result 34
 
 ### Log pipeline: Line format expressions 
 
-It can mutate the log content using line_format
-```
-{Application ="ApplicationWeb"} | line_format "{{.Path}}"
-```
+It can mutate the log content using **line_format "{{.Label}}"**
+
+Ex: {Application ="ApplicationWeb"} | line_format "{{.Path}}"
 
 <p align="center">
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/line_formatexample1.PNG?raw=true">
 </p>
 
+NOTE: it doesn't filter the logs.
+
 ### Log pipeline: Label format expressions
 
-The " | label_format" expression can rename, modify or add labels.
-```
-{Path="/ApiTest/BadResult"} | label_format New_Label_Endpoint=Path
-```
+The **| label_format** expression can rename, modify or add labels.
+
+Ex: {Path="/ApiTest/BadResult"} | label_format New_Label_Endpoint=Path
 
 <p align="center">
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/label_formatexample1.PNG?raw=true">
