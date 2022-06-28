@@ -139,39 +139,6 @@ Ex: {Application="ApplicationWeb"} |~ "Request .* HTTP"
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/linefilterexpressionexample2.PNG?raw=true">
 </p>
 
-### Log pipeline: Label filter expressions
-
-1 - For **string**, uses **Label matching operators** (=, !=, =~ and !~)
-
-Ex: {Application="ApplicationWeb"} | json | SourceContext != "Microsoft.AspNetCore.Hosting.Diagnostics"
-
-<p align="center">
-  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/labelfilteroperationexample2.PNG?raw=true">
-</p>
-
-2 - For **duration**, **number** and **bytes**
-
-```
-== or = for equality.
-!= for inequality.
-> and >= for greater than and greater than or equal.
-< and <= for lesser than and lesser than or equal.
-```
-
-Ex: {Application ="ApplicationWeb"} | StatusCode = 400
-
-Same result as: {Application ="ApplicationWeb", StatusCode="400"} 
-
-<p align="center">
-  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/labelfilteroperationexample1.PNG?raw=true">
-</p>
-
-Ex: {Application="ApplicationWeb"} | json | SourceContext != "Microsoft.AspNetCore.Hosting.Diagnostics" | Content_Result > 34
-
-<p align="center">
-  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/labelfilteroperationexample3.PNG?raw=true">
-</p>
-
 ### Log pipeline: Parsing expressions
 
 It **cannot** filter in the "Stream Selector" by "Detected fields"
@@ -204,6 +171,38 @@ Content { "Result" : 34 } -> Content_Result 34
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/jsonexample1.PNG?raw=true">
 </p>
 
+### Log pipeline: Label filter expressions
+
+1 - For **string**, uses the **label matching operators** (=, !=, =~ and !~)
+
+Ex: {Application="ApplicationWeb"} | json | SourceContext != "Microsoft.AspNetCore.Hosting.Diagnostics"
+
+<p align="center">
+  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/labelfilteroperationexample2.PNG?raw=true">
+</p>
+
+2 - For **duration**, **number** and **bytes**
+
+```
+== or = for equality.
+!= for inequality.
+> and >= for greater than and greater than or equal.
+< and <= for lesser than and lesser than or equal.
+```
+
+Ex: {Application ="ApplicationWeb"} | StatusCode = 400
+
+Same result as: {Application ="ApplicationWeb", StatusCode="400"} 
+
+<p align="center">
+  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/labelfilteroperationexample1.PNG?raw=true">
+</p>
+
+Ex: {Application="ApplicationWeb"} | json | SourceContext != "Microsoft.AspNetCore.Hosting.Diagnostics" | Content_Result > 34
+
+<p align="center">
+  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/labelfilteroperationexample3.PNG?raw=true">
+</p>
 
 ### Log pipeline: Line format expressions 
 
