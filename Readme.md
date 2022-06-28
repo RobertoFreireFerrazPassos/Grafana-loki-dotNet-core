@@ -40,7 +40,7 @@ In Log Browser, Run query
 
 ## Swagger:
 
-Run all endpoints to see new logs in the Grafana
+Run some endpoints to see new logs in the Grafana
 ```
 ApplicationWeb (ApiTest)
 http://localhost:4001/swagger/index.html
@@ -266,6 +266,12 @@ Ex: sum_over_time({Application="ApplicationWeb", StatusCode="400"} | unwrap Elap
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/sum_over_timeexample1.PNG?raw=true">
 </p>
 
+Ex: sum_over_time({Application="ApplicationWeb"} | json | SourceContext !="Microsoft.AspNetCore.Hosting.Diagnostics" | unwrap Content_Result [10s])
+
+<p align="center">
+  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/agregateresultexample1.PNG?raw=true">
+</p>
+
 ## Built-in Aggregation operators
 
 We can use built-in aggregation operators over either log or unwrapped range aggregations.
@@ -282,6 +288,12 @@ Ex: sum(sum_over_time({Application="ApplicationWeb", StatusCode="400"} | unwrap 
 
 <p align="center">
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/sum_sum_over_timeexample1.PNG?raw=true">
+</p>
+
+sum(sum_over_time({Application="ApplicationWeb"} | json | SourceContext !="Microsoft.AspNetCore.Hosting.Diagnostics" | unwrap Content_Result [10s]))
+
+<p align="center">
+  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/sumofagregateresultexample1.PNG?raw=true">
 </p>
 
 # References:
