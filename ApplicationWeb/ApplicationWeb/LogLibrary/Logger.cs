@@ -11,18 +11,18 @@ namespace LogLibrary
         public string LogId { get; set; }
         public DateTime TimeStamp { get; set; }
 
-        public LogData() 
+        public LogData()
         {
             LogId = Guid.NewGuid().ToString();
             TimeStamp = DateTime.UtcNow;
-        }        
+        }
     }
 
     public static class Logger
     {
         public static void Information(object content, string message = "")
         {
-            var dataLog = new LogData() { Content = content, Message = message  };
+            var dataLog = new LogData() { Content = content, Message = message };
 
             Log.Information(JsonSerializer.Serialize(dataLog));
         }

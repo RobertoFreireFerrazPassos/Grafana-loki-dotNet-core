@@ -12,7 +12,17 @@ There are two types of LogQL queries:
 
 # Steps to Run:
 
-Set docker-compose as start up project on Visual Studio and run Docker compose
+1 - Using Visual Studio:
+```
+Set docker-compose as start up project on Visual Studio 
+Click on Docker compose
+```
+
+2 - Using Cmd
+```
+Open cmd at folder ...\Grafana-loki-dotNet-core\ApplicationWeb
+Run command "docker compose up"
+```
 
 ## Grafana: 
 ```
