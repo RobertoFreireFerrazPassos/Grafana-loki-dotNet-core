@@ -141,17 +141,18 @@ Ex: {Application="ApplicationWeb"} |~ "Request .* HTTP"
 
 ### Log pipeline: Parsing expressions
 
-It **cannot** filter in the "Stream Selector" by "Detected fields"
-```
-{Application="ApplicationWeb", LogId="78b952af-bd57-45da-8c8c-52171c952b73"} 
-```
+Note: the parsing expression **doesn't** create a JSON object from a string log line. it obtains the log lines labels for further processing.
+
+It is **not** possible to filter by "Detected fields"
+
+Wrong example: {Application="ApplicationWeb", LogId="78b952af-bd57-45da-8c8c-52171c952b73"} 
 
 First, it must parse using '| json', so "Detected fields" become "Log labels". Then, it can filter.
 ```
 {Application="ApplicationWeb"} | json | LogId="292d74e6-3899-439d-876f-f99596d350a0"
 ```
 
-The expression **| json** will produce the following mapping: { "a.b": {c: "d"}, e: "f" } -> {a_b_c="d", e="f"}
+Also, for a string object, the expression **| json** will produce the following mapping: { "a.b": {c: "d"}, e: "f" } -> {a_b_c="d", e="f"}
 
 Ex: {Application="ApplicationWeb"} | json
 ```
@@ -171,7 +172,9 @@ Ex: {Application="ApplicationWeb"} | json | LogId="292d74e6-3899-439d-876f-f9959
 
 ### Log pipeline: Label filter expressions
 
-1 - For **string**, uses the **label matching operators** (=, !=, =~ or !~)
+It filter the log lines by filtering the corresponding labels.
+
+1 - For labels with **string** values, uses the **label matching operators** (=, !=, =~ or !~)
 
 Ex: {Application="ApplicationWeb"} | json | SourceContext != "Microsoft.AspNetCore.Hosting.Diagnostics"
 
@@ -179,7 +182,7 @@ Ex: {Application="ApplicationWeb"} | json | SourceContext != "Microsoft.AspNetCo
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/labelfilteroperationexample2.PNG?raw=true">
 </p>
 
-2 - For **duration**, **number** and **bytes**
+2 - For labels with **duration**, **number** or **bytes** values.
 
 ```
 == or = for equality.
@@ -212,7 +215,7 @@ Ex: {Application ="ApplicationWeb"} | line_format "{{.Path}}"
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/line_formatexample1.PNG?raw=true">
 </p>
 
-NOTE: it doesn't filter the logs.
+NOTE: it **doesn't** filter the logs.
 
 ### Log pipeline: Label format expressions
 
@@ -246,7 +249,6 @@ Ex: rate({Application="ApplicationWeb", StatusCode="400"} [1s])
 <p align="center">
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/rateexample1.PNG?raw=true">
 </p>
-
 
 ## Unwrapped range aggregations.
 
