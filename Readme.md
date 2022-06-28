@@ -120,6 +120,16 @@ Ex: {Application="ApplicationWeb"} |= "Conten"
 
 ### Log pipeline: Label filter expressions
 
+For **string**, use **=**, **!=**, **=~** or  **!~**
+
+For **duration**, **number** and **bytes**
+```
+== or = for equality.
+!= for inequality.
+> and >= for greater than and greater than or equal.
+< and <= for lesser than and lesser than or equal.
+```
+
 **= for equality**
 
 ```
