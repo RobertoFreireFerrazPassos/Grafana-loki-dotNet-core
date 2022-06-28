@@ -257,7 +257,7 @@ Loki supports two types of this **range vector** aggregations:
 
 1 - Log range aggregations (range of selected log)
 
-2 - Unwrapped range aggregations (range of selected log by label values)
+2 - Unwrapped range aggregations (range of label values)
 
 ## Log range aggregations
 
