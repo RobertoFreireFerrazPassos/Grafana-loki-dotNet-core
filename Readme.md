@@ -2,6 +2,27 @@
 
 This projects uses **Docker** (with volumes to keep the data logs and grafana settings), **Loki** (to save log), **Grafana** (to visualize the log), **WebApi in AspNet Core using Serilog** (log library).
 
+## To do:
+
+#### Parsing expressions:
+
+- Json with parameters ex: | json first_server="servers[0]", ua="request.headers[\"User-Agent\"]
+- logfmt 
+- Pattern | pattern "<pattern-expression>"
+- Regular expression
+
+#### Unwrapped range aggregations:
+
+- without|by terms
+
+#### Built-in aggregation operators:
+
+- Add count, avg, min examples
+
+#### Dashboard
+
+- Add how to create dashboard with painels using queries and metrics
+
 # Steps to Run:
 
 1 - Using Visual Studio:
@@ -295,6 +316,10 @@ sum(sum_over_time({Application="ApplicationWeb"} | json | SourceContext !="Micro
 <p align="center">
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/sumofagregateresultexample1.PNG?raw=true">
 </p>
+
+# Dashboard
+
+
 
 # References:
 
