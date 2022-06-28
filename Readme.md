@@ -146,26 +146,24 @@ It **cannot** filter in the "Stream Selector" by "Detected fields"
 {Application="ApplicationWeb", LogId="78b952af-bd57-45da-8c8c-52171c952b73"} 
 ```
 
-**First, it must parse using '| json', so "Detected fields" become "Log labels". Then, it can filter.**
+First, it must parse using '| json', so "Detected fields" become "Log labels". Then, it can filter.
 ```
 {Application="ApplicationWeb"} | json | LogId="292d74e6-3899-439d-876f-f99596d350a0"
 ```
 
-**"| json" will produce the following mapping: { "a.b": {c: "d"}, e: "f" } -> {a_b_c="d", e="f"}**
+The expression **| json** will produce the following mapping: { "a.b": {c: "d"}, e: "f" } -> {a_b_c="d", e="f"}
 
+Ex: {Application="ApplicationWeb"} | json
 ```
-{Application="ApplicationWeb"} | json
-
 Content { "Result" : 34 } -> Content_Result 34
 ```
 <p align="center">
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/jsonexample2.PNG?raw=true">
 </p>
 
-**It can create new labels** 
-```
-{Application="ApplicationWeb"} | json | LogId="292d74e6-3899-439d-876f-f99596d350a0" | json new_label="Content"
-```
+It can create new labels using **| json the_new_label = "the_existing_label"**
+
+Ex: {Application="ApplicationWeb"} | json | LogId="292d74e6-3899-439d-876f-f99596d350a0" | json new_label="Content"
 
 <p align="center">
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/jsonexample1.PNG?raw=true">
@@ -173,7 +171,7 @@ Content { "Result" : 34 } -> Content_Result 34
 
 ### Log pipeline: Label filter expressions
 
-1 - For **string**, uses the **label matching operators** (=, !=, =~ and !~)
+1 - For **string**, uses the **label matching operators** (=, !=, =~ or !~)
 
 Ex: {Application="ApplicationWeb"} | json | SourceContext != "Microsoft.AspNetCore.Hosting.Diagnostics"
 
