@@ -88,22 +88,32 @@ There are two types of LogQL queries:
 {Application="ApplicationWeb"}
 ```
 
-**AND** logic:
+**Label matching operator**
 
 ```
-Query by Application AND StatusCode
+=: exactly equal
+!=: not equal
+=~: regex matches
+!~: regex does not match
+```
 
+Ex: Query by Application and StatusCode
+```
 {Application="ApplicationWeb",StatusCode="200"}
 ```
 
-**=~** for regex matches:
+Ex: Query by Application and both 200 and 400 status codes
 ```
-Query by Application and both 200 and 400 status codes
-
 {Application="ApplicationWeb",StatusCode=~"200|400"}
 ```
 
+<p align="center">
+  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/regexexample1.PNG?raw=true">
+</p>
+
 ### Log pipeline: Line filter expressions
+
+It filters the log line as a string
 
 ```
 |=: Log line contains string
@@ -118,11 +128,25 @@ Ex: {Application="ApplicationWeb"} |= "Conten"
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/linefilterexpressionexample1.PNG?raw=true">
 </p>
 
+Ex: {Application="ApplicationWeb"} |~ "Request .* HTTP"
+
+<p align="center">
+  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/linefilterexpressionexample2.PNG?raw=true">
+</p>
+
 ### Log pipeline: Label filter expressions
 
-For **string**, use **=**, **!=**, **=~** or  **!~**
+1 - For **string**, uses **Label matching operator**
 
-For **duration**, **number** and **bytes**
+Ex: {Application="ApplicationWeb"} | json | SourceContext != "Microsoft.AspNetCore.Hosting.Diagnostics"
+
+<p align="center">
+  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/labelfilteroperationexample2.PNG?raw=true">
+</p>
+
+
+2 - For **duration**, **number** and **bytes**
+
 ```
 == or = for equality.
 != for inequality.
@@ -130,33 +154,15 @@ For **duration**, **number** and **bytes**
 < and <= for lesser than and lesser than or equal.
 ```
 
-**= for equality**
+Ex: {Application ="ApplicationWeb"} | StatusCode = 400
 
-```
-{Application ="ApplicationWeb"} | StatusCode = 400
-
-Same result as:
-
-{Application ="ApplicationWeb", StatusCode="400"}
-```
+Same result as: {Application ="ApplicationWeb", StatusCode="400"} 
 
 <p align="center">
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/labelfilteroperationexample1.PNG?raw=true">
 </p>
 
-**!= for inequality**
-```
-{Application="ApplicationWeb"} | json | SourceContext != "Microsoft.AspNetCore.Hosting.Diagnostics"
-```
-
-<p align="center">
-  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/labelfilteroperationexample2.PNG?raw=true">
-</p>
-
-**> for greater than**
-```
-{Application="ApplicationWeb"} | json | SourceContext != "Microsoft.AspNetCore.Hosting.Diagnostics" | Content_Result > 34
-```
+Ex: {Application="ApplicationWeb"} | json | SourceContext != "Microsoft.AspNetCore.Hosting.Diagnostics" | Content_Result > 34
 
 <p align="center">
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/labelfilteroperationexample3.PNG?raw=true">
@@ -169,24 +175,23 @@ It **cannot** filter in the "Stream Selector" by "Detected fields"
 {Application="ApplicationWeb", LogId="78b952af-bd57-45da-8c8c-52171c952b73"} 
 ```
 
-First, it must parse using '| json', so "Detected fields" become "Log labels"
-Then, it can filter.
+**First, it must parse using '| json', so "Detected fields" become "Log labels". Then, it can filter.**
 ```
 {Application="ApplicationWeb"} | json | LogId="292d74e6-3899-439d-876f-f99596d350a0"
 ```
 
-"| json" will produce the following mapping: 
+**"| json" will produce the following mapping: { "a.b": {c: "d"}, e: "f" } -> {a_b_c="d", e="f"}**
 
 ```
-{ "a.b": {c: "d"}, e: "f" } -> {a_b_c="d", e="f"}
-```
-Ex: {Application="ApplicationWeb"} | json
+{Application="ApplicationWeb"} | json
 
+Content { "Result" : 34 } -> Content_Result 34
+```
 <p align="center">
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/jsonexample2.PNG?raw=true">
 </p>
 
-It can create new labels 
+**It can create new labels** 
 ```
 {Application="ApplicationWeb"} | json | LogId="292d74e6-3899-439d-876f-f99596d350a0" | json new_label="Content"
 ```
