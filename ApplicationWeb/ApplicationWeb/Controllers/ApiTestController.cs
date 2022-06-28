@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using LogLibrary;
-using Serilog;
-using System.Text.Json;
 
 namespace ApplicationWeb.Controllers
 {
