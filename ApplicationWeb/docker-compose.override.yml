@@ -6,6 +6,7 @@ volumes:
 
 services:
   applicationweb:
+    container_name: apitest
     environment:
         loki: http://loki:3100
         ASPNETCORE_ENVIRONMENT: Development

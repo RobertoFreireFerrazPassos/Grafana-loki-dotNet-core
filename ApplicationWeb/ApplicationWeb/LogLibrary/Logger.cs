@@ -1,12 +1,18 @@
 ﻿using Serilog;
+using System;
 using System.Text.Json;
 
 namespace LogLibrary
 {
+    public class ExceptionData
+    {
+        public string? Message { get; set; }
+        public string? StackTrace { get; set; }
+    }
     public class LogData
     {
         public object Content { get; set; }
-        public Exception Exception { get; set; }
+        public ExceptionData Exception { get; set; }
         public string Message { get; set; }
         public string LogId { get; set; }
         public DateTime TimeStamp { get; set; }
@@ -29,7 +35,14 @@ namespace LogLibrary
 
         public static void Error(Exception ex, string message = "")
         {
-            var dataLog = new LogData() { Exception = ex, Message = message };
+            var dataLog = new LogData() { 
+                Exception = new ExceptionData()
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                }, 
+                Message = message 
+             };
 
             Log.Information(JsonSerializer.Serialize(dataLog));
         }

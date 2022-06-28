@@ -1,14 +1,6 @@
-# LogQL
+# Project Overview
 
-The basic idea of querying logs in loki in Grafana is to query, filter, parse, format and agregate the logs
-
-LogQL (Grafana Loki's query language) uses **labels** to facilitate filtering log lines
-
-There are two types of LogQL queries:
-
-**Log queries** return the contents of log lines.
-
-**Metric queries** extend log queries to calculate values based on query results.
+This projects uses Docker (with volumes to keep the data logs and grafana settings), Loki (to log), Grafana (to visualize the log), AspNet Core and Serilog (log library).
 
 # Steps to Run:
 
@@ -46,7 +38,36 @@ Run all endpoints to see new logs in the Grafana
 ```
 ApplicationWeb
 http://localhost:4001/swagger/index.html
+
+There are 5 endpoints:
+
+1 - ApiTest/SaveData
+
+It logs the data request
+
+2 - ApiTest/GetResult
+
+It logs some new data and returns it
+
+3 - ApiTest/BadResult
+
+4 - ApiTest/Exception
+
+5 - ApiTest/GetValue
+
 ```
+
+# LogQL
+
+The basic idea of querying logs in loki in Grafana is to query, filter, parse, format and agregate the logs
+
+LogQL (Grafana Loki's query language) uses **labels** to facilitate filtering log lines
+
+There are two types of LogQL queries:
+
+**Log queries** return the contents of log lines.
+
+**Metric queries** extend log queries to calculate values based on query results.
 
 # Log Queries
 

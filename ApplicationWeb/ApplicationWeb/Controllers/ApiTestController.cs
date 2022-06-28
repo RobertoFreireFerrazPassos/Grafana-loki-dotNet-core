@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using LogLibrary;
+using System;
 
 namespace ApplicationWeb.Controllers
 {
@@ -52,6 +53,25 @@ namespace ApplicationWeb.Controllers
             Logger.Information(result, result.Message);
 
             return BadRequest(result);
+        }
+
+        [HttpGet("Exception")]
+        public IActionResult Exception()
+        {
+            int a = 10, b = 0;
+
+            try
+            {
+                var result = a / b;
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, "Exception while computing A/B");
+
+                return BadRequest("Exception while computing A/B");
+            }  
         }
 
         [HttpGet("GetValue")]
