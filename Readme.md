@@ -311,7 +311,7 @@ Ex: sum(sum_over_time({Application="ApplicationWeb", StatusCode="400"} | unwrap 
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/sum_sum_over_timeexample1.PNG?raw=true">
 </p>
 
-sum(sum_over_time({Application="ApplicationWeb"} | json | SourceContext !="Microsoft.AspNetCore.Hosting.Diagnostics" | unwrap Content_Result [10s]))
+Ex: sum(sum_over_time({Application="ApplicationWeb"} | json | SourceContext !="Microsoft.AspNetCore.Hosting.Diagnostics" | unwrap Content_Result [10s]))
 
 <p align="center">
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/sumofagregateresultexample1.PNG?raw=true">
