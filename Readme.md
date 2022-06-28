@@ -17,6 +17,8 @@ Run command "docker compose up"
 ```
 
 ## Grafana: 
+
+Configure:
 ```
 Link: http://localhost:3000/
 Default user name and password will be "admin"
@@ -36,26 +38,29 @@ In Log Browser, Run query
 Run all endpoints to see new logs in the Grafana
 
 ```
-ApplicationWeb
+ApplicationWeb (ApiTest)
 http://localhost:4001/swagger/index.html
 
 There are 5 endpoints:
 
 1 - ApiTest/SaveData
-
 It logs the data request
 
 2 - ApiTest/GetResult
-
 It logs some new data and returns it
 
 3 - ApiTest/BadResult
+It logs information about error and returns bad request
 
 4 - ApiTest/Exception
+It throws error, logs error and returns bad request
 
 5 - ApiTest/GetValue
-
+Generates number between 0 and 100, logs this number and returns it
 ```
+
+_____________________________________________
+
 
 # LogQL
 
@@ -115,7 +120,7 @@ Ex: {Application="ApplicationWeb"} |= "Conten"
 
 ### Log pipeline: Label filter expressions
 
-Basic example
+**= for equality**
 
 ```
 {Application ="ApplicationWeb"} | StatusCode = 400
@@ -127,6 +132,24 @@ Same result as:
 
 <p align="center">
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/labelfilteroperationexample1.PNG?raw=true">
+</p>
+
+**!= for inequality**
+```
+{Application="ApplicationWeb"} | json | SourceContext != "Microsoft.AspNetCore.Hosting.Diagnostics"
+```
+
+<p align="center">
+  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/labelfilteroperationexample2.PNG?raw=true">
+</p>
+
+**> for greater than**
+```
+{Application="ApplicationWeb"} | json | SourceContext != "Microsoft.AspNetCore.Hosting.Diagnostics" | Content_Result > 34
+```
+
+<p align="center">
+  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/labelfilteroperationexample3.PNG?raw=true">
 </p>
 
 ### Log pipeline: Parsing expressions
