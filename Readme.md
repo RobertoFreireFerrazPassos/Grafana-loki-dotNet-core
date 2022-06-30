@@ -4,12 +4,6 @@ This projects uses **Docker** (with volumes to keep the data logs and grafana se
 
 ## To do:
 
-#### Parsing expressions:
-
-- logfmt 
-- Pattern | pattern "<pattern-expression>"
-- Regular expression
-
 #### Unwrapped range aggregations:
 
 - without|by terms
@@ -165,6 +159,8 @@ Ex: {Application="ApplicationWeb"} |~ "Request .* HTTP"
 
 ### Log pipeline: Parsing expressions
 
+#### | json
+
 Note: the parsing expression **doesn't** create a JSON object from a string log line. it obtains the log lines labels for further processing.
 
 It is **not** possible to filter by "Detected fields"
@@ -202,6 +198,15 @@ Ex: {Application="ApplicationWeb"} | json | LogId="da56018a-cdfb-4c57-8c0d-029c9
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/jsonexample3.PNG?raw=true">
 </p>
 
+Note: There are also another parsers:
+```
+| logfmt : extract all keys and values from the logfmt formatted log line.
+| pattern "<pattern-expression>" : The expression matches the structure of a log line.
+| regexp "<re>" which is the regular expression using the Golang RE2 syntax.
+| unpack : parses a JSON log line, unpacking all embedded labels in the pack stage
+```
+
+
 ### Log pipeline: Label filter expressions
 
 It filter the log lines by filtering the corresponding labels.
@@ -213,6 +218,8 @@ Ex: {Application="ApplicationWeb"} | json | SourceContext != "Microsoft.AspNetCo
 <p align="center">
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/labelfilteroperationexample2.PNG?raw=true">
 </p>
+
+Note: The above query could be replaced by {Application="ApplicationWeb", SourceContext != "Microsoft.AspNetCore.Hosting.Diagnostics"} since some of the log lines have this 'SourceContext' label
 
 2 - For labels with **duration**, **number** or **bytes** values.
 
