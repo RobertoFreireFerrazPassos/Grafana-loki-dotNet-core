@@ -6,7 +6,6 @@ This projects uses **Docker** (with volumes to keep the data logs and grafana se
 
 #### Parsing expressions:
 
-- Json with parameters ex: | json first_server="servers[0]", ua="request.headers[\"User-Agent\"]
 - logfmt 
 - Pattern | pattern "<pattern-expression>"
 - Regular expression
@@ -193,6 +192,14 @@ Ex: {Application="ApplicationWeb"} | json | LogId="292d74e6-3899-439d-876f-f9959
 
 <p align="center">
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/jsonexample1.PNG?raw=true">
+</p>
+
+It only supports field access (my.field, my["field"]) and array access (list[0]), and any combination of these in any level of nesting (my.list[0]["field"])
+
+Ex: {Application="ApplicationWeb"} | json | LogId="da56018a-cdfb-4c57-8c0d-029c9ef9970d" | json new_label="Content", label_result="Content.Result"
+
+<p align="center">
+  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/jsonexample3.PNG?raw=true">
 </p>
 
 ### Log pipeline: Label filter expressions
