@@ -23,6 +23,10 @@ This projects uses **Docker** (with volumes to keep the data logs and grafana se
 
 - Add how to create dashboard with painels using queries and metrics
 
+#### Alert
+
+- Create a alert
+
 # Steps to Run:
 
 1 - Using Visual Studio:
