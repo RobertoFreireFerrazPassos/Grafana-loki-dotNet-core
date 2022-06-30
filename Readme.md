@@ -337,7 +337,7 @@ Ex: sum(sum_over_time({Application="ApplicationWeb"} | json | SourceContext !="M
 
 # Dashboard
 
-
+# Alert
 
 # References:
 
