@@ -4,14 +4,6 @@ This projects uses **Docker** (with volumes to keep the data logs and grafana se
 
 ## To do:
 
-#### Unwrapped range aggregations:
-
-- without|by terms
-
-#### Built-in aggregation operators:
-
-- Add count, avg, min examples
-
 #### Dashboard
 
 - Add how to create dashboard with painels using queries and metrics
@@ -333,8 +325,10 @@ bottomk: Select smallest k elements by sample value
 ```
 
 **[parameter,]** is required when using topk and bottomk:
-Get the top 10 applications by the highest log throughput: topk(10,sum(rate({region="us-east1"}[5m])) by (name))
-
+```
+Get the top 10 applications by the highest log throughput during the last five minutes 
+topk(10,sum(rate({region="us-east1"}[5m])) by (name))
+```
 
 **sum**
 
@@ -361,6 +355,8 @@ Ex: sum(count_over_time({Application="ApplicationWeb"} | json | Context=~"ApiTes
 <p align="center">
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/noby_example1.PNG?raw=true">
 </p>
+
+**[without|by (<label list>)]** "by" and "without" are used to group the result
 
 Ex: sum(count_over_time({Application="ApplicationWeb"} | json | Context=~"ApiTest.*" [5m])) by (Context)
 
