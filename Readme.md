@@ -4,6 +4,12 @@ This projects uses **Docker** (with volumes to keep the data logs and grafana se
 
 ## To do:
 
+#### Metric Queries
+
+- Review this topic
+- Explain the time [5m] and how it stretch the results so it can calculate over it
+- Explain in words each example
+
 #### Dashboard
 
 - Add how to create dashboard with painels using queries and metrics
