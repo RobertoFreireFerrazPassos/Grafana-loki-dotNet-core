@@ -7,7 +7,7 @@ This projects uses **Docker** (with volumes to keep the data logs and grafana se
 #### Metric Queries
 
 - Review this topic
-- Explain the time [5m] and how it stretch the results so it can calculate over it
+- Explain the time expression ( ... [5m]) and how it stretch the results so it can calculate over it
 - Explain in words each example
 
 #### Dashboard
