@@ -315,6 +315,27 @@ Ex: sum_over_time({Application="ApplicationWeb"} | json | SourceContext !="Micro
 
 We can use built-in aggregation operators over either log or unwrapped range aggregations.
 
+```
+<aggr-op>([parameter,] <vector expression>) [without|by (<label list>)]
+```
+
+List of **aggr-op**:
+```
+sum: Calculate sum over labels
+avg: Calculate the average over labels
+min: Select minimum over labels
+max: Select maximum over labels
+stddev: Calculate the population standard deviation over labels
+stdvar: Calculate the population standard variance over labels
+count: Count number of elements in the vector
+topk: Select largest k elements by sample value
+bottomk: Select smallest k elements by sample value
+```
+
+**[parameter,]** is required when using topk and bottomk:
+Get the top 10 applications by the highest log throughput: topk(10,sum(rate({region="us-east1"}[5m])) by (name))
+
+
 **sum**
 
 Ex: sum(rate({Application="ApplicationWeb", StatusCode="400"} [1s]))
@@ -334,6 +355,19 @@ Ex: sum(sum_over_time({Application="ApplicationWeb"} | json | SourceContext !="M
 <p align="center">
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/sumofagregateresultexample1.PNG?raw=true">
 </p>
+
+Ex: sum(count_over_time({Application="ApplicationWeb"} | json | Context=~"ApiTest.*" [5m]))
+
+<p align="center">
+  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/noby_example1.PNG?raw=true">
+</p>
+
+Ex: sum(count_over_time({Application="ApplicationWeb"} | json | Context=~"ApiTest.*" [5m])) by (Context)
+
+<p align="center">
+  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/by_example1.PNG?raw=true">
+</p>
+
 
 # Dashboard
 

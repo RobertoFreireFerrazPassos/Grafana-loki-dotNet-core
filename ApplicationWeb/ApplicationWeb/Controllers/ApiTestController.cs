@@ -18,7 +18,7 @@ namespace ApplicationWeb.Controllers
         {
             var message = "Save Data succesfully";
 
-            Logger.Information(dataRequest);
+            Logger.Information(dataRequest, "ApiTest_SaveData");
 
             return Ok(message);
         }
@@ -37,7 +37,7 @@ namespace ApplicationWeb.Controllers
                 Result = result,
             };
 
-            Logger.Information(data);
+            Logger.Information(data, "ApiTest_GetResult");
 
             return Ok(result);
         }
@@ -50,7 +50,7 @@ namespace ApplicationWeb.Controllers
                 Message = "Error occurr during saving.",
             };
 
-            Logger.Information(result, result.Message);
+            Logger.Information(result, "ApiTest_BadResult", result.Message);
 
             return BadRequest(result);
         }
@@ -68,7 +68,7 @@ namespace ApplicationWeb.Controllers
             }
             catch (Exception ex)
             {
-                Logger.Error(ex, "Exception while computing A/B");
+                Logger.Error(ex, "ApiTest_Exception", "Exception while computing A/B");
 
                 return BadRequest("Exception while computing A/B");
             }  
@@ -86,7 +86,7 @@ namespace ApplicationWeb.Controllers
                 Result = result,
             };
 
-            Logger.Information(data);
+            Logger.Information(data, "ApiTest_GetValue");
 
             return Ok(result);
         }
