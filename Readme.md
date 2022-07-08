@@ -4,11 +4,6 @@ This projects uses **Docker** (with volumes to keep the data logs and grafana se
 
 ## To do:
 
-#### Metric Queries
-
-- Review this topic
-- Explain the time expression ( ... [5m]) and how it stretch the results so it can calculate over it
-- Explain in words each example
 
 #### Dashboard
 
@@ -17,6 +12,9 @@ This projects uses **Docker** (with volumes to keep the data logs and grafana se
 #### Alert
 
 - Create a alert
+
+_____________________________________________
+
 
 # Steps to Run:
 
@@ -85,6 +83,7 @@ It throws error, logs error and returns bad request
 Generates number between 0 and 100, logs this number and returns it
 ```
 
+
 _____________________________________________
 
 
@@ -100,13 +99,12 @@ There are two types of LogQL queries:
 
 **Metric queries** extend log queries to calculate values based on query results.
 
-# Log Queries
+## Log Queries
 
 <p align="center">
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/log_queries.PNG?raw=true">
 </p>
 
-## Log Queries
 
 ### Stream Selector
 
@@ -271,11 +269,13 @@ Metric queries extend log queries by applying a function to log query results.
 
 Loki supports two types of this **range vector** aggregations: 
 
-1 - Log range aggregations (range of selected log)
+1 - **Log range aggregations** (range of selected log)
 
-2 - Unwrapped range aggregations (range of label values)
+2 - **Unwrapped range aggregations** (range of label values)
 
-## Log range aggregations
+It can also use **Built-in Aggregation operators** on top of the metrics queries
+
+## 1 - Log range aggregations
 
 A log range aggregation is a query followed by a duration.
 
@@ -295,7 +295,9 @@ Ex: rate({Application="ApplicationWeb", StatusCode="400"} [1s])
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/rateexample1.PNG?raw=true">
 </p>
 
-## Unwrapped range aggregations.
+Note: time expression [10s] changes the values in the chart.
+
+## 2 - Unwrapped range aggregations.
 
 Unwrapped ranges uses extracted labels as sample values instead of log lines.
 
@@ -393,9 +395,46 @@ Ex: sum(count_over_time({Application="ApplicationWeb"} | json | Context=~"ApiTes
 </p>
 
 
+___________________________________________
+
+
 # Dashboard
 
+Click to create a new dashboard
+Add an empty panel
+Choose Loki as data source
+Change the Filter time range
+Add the **Metric Query** in the Log Browser
+Add Title and Save it
+
+Ex: sum(rate({Application="ApplicationWeb", StatusCode="400"} [1s])) by (Path)
+
+<p align="center">
+  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/dashboardexample1.PNG?raw=true">
+</p>
+
+<p align="center">
+  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/dashboardexample2.PNG?raw=true">
+</p>
+
+
+Add a new empty panel
+In Transform Tab, choose **Labels to fields**
+Change visualization type from **Time Series** to **Stats**
+
+<p align="center">
+  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/dashboardexample3.PNG?raw=true">
+</p>
+
+
+___________________________________________
+
+
 # Alert
+
+
+___________________________________________
+
 
 # References:
 
