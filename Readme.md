@@ -400,12 +400,14 @@ ___________________________________________
 
 # Dashboard
 
+```
 Click to create a new dashboard
 Add an empty panel
 Choose Loki as data source
 Change the Filter time range
 Add the **Metric Query** in the Log Browser
 Add Title and Save it
+```
 
 Ex: sum(rate({Application="ApplicationWeb", StatusCode="400"} [1s])) by (Path)
 
@@ -416,16 +418,6 @@ Ex: sum(rate({Application="ApplicationWeb", StatusCode="400"} [1s])) by (Path)
 <p align="center">
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/dashboardexample2.PNG?raw=true">
 </p>
-
-
-Add a new empty panel
-In Transform Tab, choose **Labels to fields**
-Change visualization type from **Time Series** to **Stats**
-
-<p align="center">
-  <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/dashboardexample3.PNG?raw=true">
-</p>
-
 
 ___________________________________________
 
