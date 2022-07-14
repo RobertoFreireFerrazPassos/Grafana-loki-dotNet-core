@@ -2,17 +2,6 @@
 
 This projects uses **Docker** (with volumes to keep the data logs and grafana settings), **Loki** (to save log), **Grafana** (to visualize the log), **WebApi in AspNet Core using Serilog** (log library).
 
-## To do:
-
-
-#### Dashboard
-
-- Add how to create dashboard with painels using queries and metrics
-
-#### Alert
-
-- Create a alert
-
 _____________________________________________
 
 
@@ -418,11 +407,6 @@ Ex: sum(rate({Application="ApplicationWeb", StatusCode="400"} [1s])) by (Path)
 <p align="center">
   <img src="https://github.com/RobertoFreireFerrazPassos/Grafana-loki-dotNet-core/blob/main/img/dashboardexample2.PNG?raw=true">
 </p>
-
-___________________________________________
-
-
-# Alert
 
 
 ___________________________________________
